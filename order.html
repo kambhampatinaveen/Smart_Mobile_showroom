@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mobile Order</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+
+        .order-form {
+            background: white;
+            max-width: 420px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.2);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 12px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        .upi-box {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            border: 1px dashed #999;
+            padding: 10px;
+        }
+
+        .upi-box img {
+            width: 180px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="order-form">
+    <h2>Order Your Mobile</h2>
+
+    <form method="POST" action="/submit">
+        <label>Name</label>
+        <input type="text" name="name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Phone</label>
+        <input type="tel" name="phone" required>
+
+        <label>Address</label>
+        <textarea name="address" required></textarea>
+
+        <label>Payment Method</label>
+        <select name="payment" onchange="showUPI(this.value)" required>
+            <option value="">Select</option>
+            <option value="COD">Cash on Delivery</option>
+            <option value="UPI">UPI</option>
+        </select>
+
+        <div class="upi-box" id="upiBox">
+            <p><strong>Scan UPI QR</strong></p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay">
+        </div>
+
+        <button type="submit">Place Order</button>
+    </form>
+</div>
+
+<script>
+function showUPI(value) {
+    document.getElementById("upiBox").style.display =
+        value === "UPI" ? "block" : "none";
+}
+</script>
+
+</body>
+</html>
